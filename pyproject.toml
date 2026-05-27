@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "peek"
+version = "0.1.0"
+description = "PEEK: Picking Essential frames via Efficient Knowledge distillation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+authors = [{ name = "Killian Steunou" }]
+dependencies = [
+    "numpy",
+    "pillow",
+    "pyyaml",
+    "scipy",
+    "torch>=2.1",
+    "tqdm",
+    "imageio-ffmpeg",
+    "transformers>=4.49",
+    "open_clip_torch>=2.30",
+    "huggingface_hub>=0.23",
+    "safetensors>=0.4",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

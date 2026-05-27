@@ -1,0 +1,44 @@
+# PEEK base - released checkpoint
+experiment_name: peek
+run_name: peek_base
+runs_root: runs
+best_metric_name: val_spearman
+
+# Embedding dim of the precomputed student inputs
+embedding_dim: 512
+
+# Optimizer
+learning_rate: 2.0e-4
+weight_decay: 0.03
+batch_size: 1024
+epochs: 25
+warmup_epochs: 2
+checkpoint_every_epochs: 1
+grad_clip_max_norm: 1.0
+
+# Output activation: identity for ListMLE; we sort logits at selection time
+output_activation: identity
+
+# Scorer architecture (~1.7M trainable parameters).
+hidden_dim: 256
+num_heads: 4
+num_layers: 2
+ffn_dim: 1024
+dropout: 0.15
+
+# Temporal augmentation
+random_frame_drop_min: 0.05
+random_frame_drop_max: 0.25
+random_crop_min_fraction: 0.7
+max_frames_per_segment: 32
+min_frames_after_aug: 6
+
+# Paths - set these to the artifacts written by the precompute scripts
+train_manifest:        data/manifests/train.jsonl
+val_manifest:          data/manifests/val.jsonl
+train_embeddings_root: data/embeddings/train
+val_embeddings_root:   data/embeddings/val
+train_targets_root:    data/teacher/train_targets
+val_targets_root:      data/teacher/val_targets
+
+eval_ks: [1, 2, 4, 8]

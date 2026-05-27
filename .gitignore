@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+.eggs/
+build/
+dist/
+
+# Environments
+.venv/
+venv/
+.env
+
+# Caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Training artifacts
+# Pretrained weights live on the Hugging Face Hub (CC-BY-NC-SA-4.0), not here.
+runs/
+data/
+checkpoints/
+*.pt
+*.safetensors
+wandb/
+
+# OS
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+
+benchmark_peek.py
