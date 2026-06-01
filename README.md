@@ -1,11 +1,10 @@
 # PEEK: Picking Essential frames via Efficient Knowledge distillation
 
-Official implementation for **PEEK: Picking Essential frames via Efficient
-Knowledge distillation**.
+Official implementation of [**PEEK: Picking Essential frames via Efficient Knowledge distillation**](https://arxiv.org/abs/2605.31029).
 
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/Paper-coming%20soon-b31b1b.svg" alt="Paper"></a>
-  <a href="#"><img src="https://img.shields.io/badge/arXiv-coming%20soon-b31b1b.svg" alt="arXiv"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Paper-2605.31029-b31b1b.svg" alt="Paper"></a>
+  <a href="#"><img src="https://img.shields.io/badge/arXiv-2605.31029-b31b1b.svg" alt="arXiv"></a>
   <a href="https://huggingface.co/momentslab/peek"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Weights-FFD21E.svg" alt="Hugging Face weights"></a>
   <a href="https://huggingface.co/spaces/momentslab/peek"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Spaces-Demo-FF7C00.svg" alt="Hugging Face Space demo"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/Code-Apache%202.0-blue.svg" alt="Code license: Apache-2.0"></a>
@@ -231,7 +230,8 @@ The pretrained weights ([`momentslab/peek`](https://huggingface.co/momentslab/pe
 @inproceedings{steunou2026peek,
   title={{PEEK}: Picking Essential frames via Efficient Knowledge distillation},
   author={Steunou, Killian and Filali Razzouki, Anas and Guetari, Khalil and El-Yacoubi, Mounîm A. and Tevissen, Yannis},
-  year={2026}
+  year={2026},
+  url={https://arxiv.org/abs/2605.31029}
 }
 ```
 
