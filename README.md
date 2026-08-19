@@ -232,8 +232,9 @@ The pretrained weights ([`momentslab/peek`](https://huggingface.co/momentslab/pe
 
 ```bibtex
 @inproceedings{steunou2026peek,
-  title={{PEEK}: Picking Essential frames via Efficient Knowledge distillation},
-  author={Steunou, Killian and Filali Razzouki, Anas and Guetari, Khalil and El-Yacoubi, Mounîm A. and Tevissen, Yannis},
+  title={PEEK: Picking Essential frames via Efficient Knowledge distillation},
+  author={Steunou, Killian and Filali Razzouki, Anas and Guetari, Khalil and El-Yacoubi, Moun{\^i}m A. and Tevissen, Yannis},
+  booktitle={British Machine Vision Conference (BMVC)},
   year={2026},
   url={https://arxiv.org/abs/2605.31029}
 }
