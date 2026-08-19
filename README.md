@@ -15,6 +15,10 @@ PEEK is a query-free frame selector for low-budget video captioning. It learns f
 
 In our experiments, a single ActivityNet-trained PEEK checkpoint improves one-frame and two-frame CIDEr over uniform sampling across four captioning VLMs on ActivityNet Captions and MSR-VTT. The gains are strongest when the visual budget is tight; at larger budgets, uniform temporal coverage remains a strong baseline.
 
+## News
+
+- 🎊 PEEK has been accepted to the 37th British Machine Vision Conference (BMVC 2026)!
+
 ## How it works
 
 The model is trained by distillation:
