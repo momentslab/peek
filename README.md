@@ -219,6 +219,21 @@ The training run writes to `runs/peek/peek_base/`:
 - `metrics.jsonl` — one row per step / per epoch.
 - `config.json` — the fully-resolved config for this run.
 
+## Reproducing the captioning results
+
+This reproduces Tables 1-2: captioning on ActivityNet Captions and MSR-VTT with frames picked by Uniform, Random, Oracle or PEEK. It needs `java` for the metrics.
+
+```bash
+pip install -e ".[eval]"
+python scripts/eval_captioning.py --dataset msrvtt --vlm qwen25vl3b \
+    --manifest data/manifests/msrvtt_test.jsonl --video-root data/msrvtt/videos \
+    --output runs/msrvtt_qwen25vl3b.jsonl
+python scripts/score_captions.py --dataset msrvtt \
+    --manifest data/manifests/msrvtt_test.jsonl runs/msrvtt_qwen25vl3b.jsonl
+```
+
+See [docs/REPRODUCING.md](docs/REPRODUCING.md) for data preparation, the prompts per VLM, and what can move the numbers. On ActivityNet, the paper's PEEK scored at most 32 frames per segment. Pass `--peek-max-frames none` to score every frame.
+
 ## Notes on the pretrained model
 
 The pretrained weights ([`momentslab/peek`](https://huggingface.co/momentslab/peek),
