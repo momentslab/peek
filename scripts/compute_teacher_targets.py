@@ -1,3 +1,4 @@
+"""Compute SigLIP2 teacher targets (Stage 1) for every segment in a manifest."""
 from __future__ import annotations
 
 import argparse

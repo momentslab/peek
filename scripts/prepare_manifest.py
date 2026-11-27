@@ -1,3 +1,4 @@
+"""Build a JSONL segment manifest from ActivityNet Captions annotations."""
 from __future__ import annotations
 
 import argparse

@@ -26,6 +26,17 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest"]
+# Downstream captioning evaluation (docs/REPRODUCING.md). Versions match the paper runs.
+eval = [
+    "transformers==5.5.4",
+    "accelerate",
+    "qwen-vl-utils==0.0.14",
+    "pycocoevalcap==1.2",
+    # ffmpeg 7.0.2, as used for the paper's ANC frames; newer builds change frame counts.
+    "imageio-ffmpeg==0.6.0",
+    "decord==0.6.0; platform_machine == 'x86_64'",
+    "decord2; platform_machine == 'aarch64'",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

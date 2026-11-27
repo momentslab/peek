@@ -1,0 +1,61 @@
+# Downstream captioning protocol used for the PEEK paper (Tables 1-2).
+#
+# Every value below was read back from the logged configs of the runs that
+# produced the paper numbers (see docs/REPRODUCING.md). Where the two
+# benchmarks were run differently, the difference is kept on purpose so the
+# paper numbers can be reproduced; do not "harmonize" these values.
+
+vlms:
+  smolvlm2:
+    model_id: HuggingFaceTB/SmolVLM2-2.2B-Instruct
+  qwen25vl3b:
+    model_id: Qwen/Qwen2.5-VL-3B-Instruct
+  qwen25vl7b:
+    model_id: Qwen/Qwen2.5-VL-7B-Instruct
+  qwen35_4b:
+    model_id: Qwen/Qwen3.5-4B
+
+prompts:
+  describe: "Describe this video in one sentence."
+  short_example: "Generate one short sentence (under 12 words) describing what is happening, like 'a man is playing guitar' or 'a woman is cooking'."
+  # ANC used an en dash ("5–10"), MSR-VTT an ASCII hyphen ("5-10").
+  short_action_en_dash: "Write a single short caption (5–10 words) describing the main action in the video."
+  short_action_hyphen: "Write a single short caption (5-10 words) describing the main action in the video."
+
+datasets:
+  anc:
+    # ActivityNet Captions val_1 (the paper's "test" split), one reference per segment.
+    # Frames: ffmpeg -ss/-t on the segment, fps=2, JPEG -q:v 2 (scripts/extract_frames.py).
+    frame_source: jpeg_segments
+    fps: 2.0
+    # The paper's ANC runs scored PEEK on at most 32 frames per segment
+    # (np.linspace subsample of the 2 fps frames, the training cap), while
+    # Uniform/Random/Oracle used every 2 fps frame. Set to null to score all frames.
+    peek_max_frames: 32
+    # Oracle = SigLIP2 cosine to the single GT caption, plain top-k.
+    oracle_selection: topk
+    random_seed_scheme: anc
+    # Empty generated captions are scored as empty strings (CIDEr 0) on ANC.
+    score_empty_captions: true
+    vlms:
+      smolvlm2:   {prompt: short_example, max_new_tokens: 50}
+      qwen25vl3b: {prompt: describe, max_new_tokens: 50}
+      qwen25vl7b: {prompt: short_example, max_new_tokens: 50}
+      qwen35_4b:  {prompt: short_action_en_dash, max_new_tokens: 20, image_max_pixels: 401408, oom_retry_image_max_pixels: 200704}
+  msrvtt:
+    # MSR-VTT test (2,990 clips, 20 references each), decoded with decord from
+    # the 3 fps, 298x224 copy in HF friedrichor/MSR-VTT (MSRVTT_Videos.zip).
+    frame_source: decord
+    fps: 2.0
+    peek_max_frames: null
+    # Oracle = mean SigLIP2 cosine over the 20 references, stratified argmax.
+    oracle_selection: stratified_argmax
+    random_seed_scheme: msrvtt
+    # Empty generated captions were dropped before scoring on MSR-VTT, so each
+    # selector can be scored on a different subset (see docs/REPRODUCING.md).
+    score_empty_captions: false
+    vlms:
+      smolvlm2:   {prompt: short_example, max_new_tokens: 50}
+      qwen25vl3b: {prompt: describe, max_new_tokens: 50}
+      qwen25vl7b: {prompt: short_example, max_new_tokens: 50}
+      qwen35_4b:  {prompt: short_action_hyphen, max_new_tokens: 20}

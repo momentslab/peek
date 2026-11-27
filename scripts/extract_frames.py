@@ -1,3 +1,4 @@
+"""Extract candidate frames at a fixed fps (default 2) for every segment in a manifest."""
 from __future__ import annotations
 
 import argparse

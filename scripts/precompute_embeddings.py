@@ -1,3 +1,4 @@
+"""Precompute frozen MobileCLIP2 frame embeddings (Stage 2 inputs) for a manifest."""
 from __future__ import annotations
 
 import argparse
