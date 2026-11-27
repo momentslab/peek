@@ -34,13 +34,10 @@ At test time we score every frame once and select `k` of them with **stratified 
 
 ## Release plan
 
-This release currently includes the code and weights needed to train PEEK and run the released selector on new videos. The full downstream captioning evaluation pipeline used for the paper tables is still being prepared.
-
 - [x] Training code for SigLIP2 teacher target generation and PEEK distillation.
 - [x] Single-video inference CLI and Python API.
 - [x] ActivityNet-trained `peek_base` weights on [Hugging Face](https://huggingface.co/momentslab/peek).
-- [ ] ActivityNet Captions test-set evaluation code.
-- [ ] MSR-VTT test-set evaluation code.
+- [x] ActivityNet Captions and MSR-VTT captioning evaluation (Uniform, Random, Oracle, PEEK): see [docs/REPRODUCING.md](docs/REPRODUCING.md).
 
 ## Repository layout
 
@@ -49,7 +46,10 @@ peek/
 ├── assets/
 │   ├── peek_phase1.png             # Stage 1 diagram
 │   └── peek_phase2.png             # Stage 2 diagram
-├── configs/peek_base.yaml          # released-model training config
+├── configs/
+│   ├── peek_base.yaml              # released-model training config
+│   └── eval_captioning.yaml        # paper captioning protocol (prompts, decoding, per-dataset settings)
+├── docs/REPRODUCING.md             # how to reproduce Tables 1-2, and known causes of differences
 ├── LICENSE                         # Apache-2.0 (code)
 ├── scripts/
 │   ├── prepare_manifest.py         # build a JSONL manifest from ANC annotations
@@ -57,7 +57,10 @@ peek/
 │   ├── compute_teacher_targets.py  # SigLIP2 teacher targets (Stage 1)
 │   ├── precompute_embeddings.py    # frozen MobileCLIP2 frame embeddings
 │   ├── train.py                    # train PEEK (Stage 2)
-│   └── infer.py                    # run a pretrained checkpoint on one video
+│   ├── infer.py                    # run a pretrained checkpoint on one video
+│   ├── prepare_msrvtt_manifest.py  # MSR-VTT test manifest (2,990 clips, 20 refs)
+│   ├── eval_captioning.py          # caption ANC / MSR-VTT with Uniform, Random, Oracle or PEEK frames
+│   └── score_captions.py           # CIDEr, BLEU-4, METEOR, ROUGE-L
 └── src/peek/
     ├── data.py        # SegmentRecord + ANC ingestion + manifest I/O
     ├── frames.py      # ffmpeg frame extraction
@@ -68,7 +71,8 @@ peek/
     ├── dataset.py     # PeekSegmentDataset for training
     ├── selection.py   # stratified_argmax / topk / uniform
     ├── inference.py   # high-level video → selected frames API
-    └── train.py       # main training loop
+    ├── train.py       # main training loop
+    └── eval/          # downstream captioning evaluation (captioner, selectors, metrics)
 ```
 
 ## Installation
